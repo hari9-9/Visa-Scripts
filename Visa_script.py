@@ -117,6 +117,12 @@ def parse_ods(file_path):
     # Read the .ods file into a pandas DataFrame
     df = pd.read_excel(file_path, engine="odf")
     
+    # Locate the row containing the desired information
+    row_index = df['Unnamed: 1'].str.contains('Decisions for period', na=False)
+
+    # Extract the value from the DataFrame
+    value = df.loc[row_index, 'Unnamed: 1'].values[0]
+    print(value)
     # Filter relevant columns
     filtered_df = df.iloc[:, [2, 3]]  # Assuming columns 2 and 3 are relevant (adjust indices as needed)
 
@@ -130,7 +136,7 @@ def parse_ods(file_path):
     filtered_df.reset_index(drop=True, inplace=True)
 
     # Print the cleaned DataFrame
-    print(filtered_df)
+    #print(filtered_df)
 
     return filtered_df
 

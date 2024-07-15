@@ -4,6 +4,16 @@ import pandas as pd
 def parse_ods(file_path):
     # Read the .ods file into a pandas DataFrame
     df = pd.read_excel(file_path, engine="odf")
+    print(df)
+    # value = df.iloc[1, 2]
+    # print(value)
+    
+    # Locate the row containing the desired information
+    row_index = df['Unnamed: 1'].str.contains('Decisions for period', na=False)
+
+    # Extract the value from the DataFrame
+    value = df.loc[row_index, 'Unnamed: 1'].values[0]
+    print(value)
     filtered_df = df.iloc[:, [2, 3]]
     #filtered_df.columns = ['Application_Number', 'Result']
     filtered_df = filtered_df.dropna()
